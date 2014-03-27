@@ -23,7 +23,7 @@ public class MarkovModel {
 	}
 
 	private void fillMap() throws IOException {
-		// TODO Auto-generated method stub
+
 		StringBuilder stringBuffer = new StringBuilder(3);
 
 		for (int i = 0; i < m_order; i++) {
@@ -55,7 +55,9 @@ public class MarkovModel {
 			} else {
 				asciiArray = new int[128];
 			}
-			
+			if (next > 127) {
+				continue;
+			}
 			asciiArray[next]++;
 			hashmap.put(key, asciiArray);
 			
@@ -110,6 +112,8 @@ public class MarkovModel {
 					"Length of string kgram must be equal to order.");
 		}
 		int[] asciiArray = hashmap.get(kgram);
+		
+		// TODO doesn't work for some reason
 		if (asciiArray == null) {
 			return NOCHARACTER;
 		}
@@ -120,7 +124,9 @@ public class MarkovModel {
 				asciiArray[i]--;
 			}
 		}
-		
+		if (candidates.size() == 0) {
+			return NOCHARACTER;
+		}
 		int get = randomizer.nextInt(candidates.size());
 		return candidates.get(get);
 		

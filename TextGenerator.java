@@ -4,7 +4,7 @@ import java.io.*;
 
 public class TextGenerator {
 
-	final char NOCHARACTER = (char) (255);
+	// final char NOCHARACTER = (char) (255);
 	BufferedReader reader;
 	MarkovModel model;
 	int limit;
@@ -27,7 +27,9 @@ public class TextGenerator {
 		StringBuilder output = new StringBuilder(start);
 		while (currentLength <= limit) {
 			char next = model.nextCharacter(stringBuffer.toString());
-			if (next == NOCHARACTER) {
+			
+			// TODO doesn't work
+			if (next == model.NOCHARACTER) {
 				next = model.nextCharacter(start);
 			}
 			output.append(next);
@@ -39,8 +41,9 @@ public class TextGenerator {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		TextGenerator textgen = new TextGenerator(4, 100, "test.txt");
-		System.out.print(textgen.run());
+		TextGenerator textgen = new TextGenerator(5, 100, "test.txt");
+		System.out.println(textgen.run());
+		System.out.println((char)(255));
 	}
 	
 }
