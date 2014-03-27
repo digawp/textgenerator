@@ -35,12 +35,12 @@ public class TextGenerator {
 			stringBuffer.deleteCharAt(0);
 			currentLength++;
 		}
-		return stringBuffer.toString();
+		return output.toString();
 	}
 	
 	public static void main(String[] args) throws IOException {
-		TextGenerator textgen = new TextGenerator(4, 20, "test.txt");
-		System.out.println(textgen.run());
+		TextGenerator textgen = new TextGenerator(4, 100, "test.txt");
+		System.out.print(textgen.run());
 	}
 	
 }
