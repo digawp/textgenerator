@@ -111,12 +111,15 @@ public class MarkovModel {
 			throw new IllegalArgumentException(
 					"Length of string kgram must be equal to order.");
 		}
-		int[] asciiArray = hashmap.get(kgram);
+		
 		
 		// TODO doesn't work for some reason
-		if (asciiArray == null) {
+		if (hashmap.get(kgram) == null) {
 			return NOCHARACTER;
 		}
+		
+		int[] asciiArray = hashmap.get(kgram).clone();
+		
 		ArrayList<Character> candidates = new ArrayList<Character>();
 		for (int i = 0; i < asciiArray.length; i++) {
 			while (asciiArray[i] > 0) {
