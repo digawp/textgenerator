@@ -19,6 +19,7 @@ public class TextGenerator {
 			for (int i = 0; i < k; i++) {
 				stringBuffer.append((char)reader.read());
 			}
+			reader.close();
 			start = stringBuffer.toString();
 	}
 	
@@ -42,8 +43,8 @@ public class TextGenerator {
 	
 	public static void main(String[] args) throws IOException {
 		TextGenerator textgen = new TextGenerator(5, 100, "test.txt");
+		textgen.model.setRandomSeed(100);
 		System.out.println(textgen.run());
-		System.out.println((char)(255));
 	}
 	
 }

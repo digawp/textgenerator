@@ -9,7 +9,7 @@ public class MarkovModel {
 
 	final char NOCHARACTER = (char) (255);
 	private int m_order;
-	BufferedReader reader;
+	private BufferedReader reader;
 	HashMap<String, int[]> hashmap = new HashMap<String, int[]>();
 	Random randomizer = new Random();
 
