@@ -121,7 +121,8 @@ public class MarkovModel {
 			}
 		}
 		
-		return candidates.get(randomizer.nextInt(candidates.size()));
+		int get = randomizer.nextInt(candidates.size());
+		return candidates.get(get);
 		
 	}
 
