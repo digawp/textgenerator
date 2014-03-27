@@ -8,7 +8,7 @@ public class TextGenerator {
 	BufferedReader reader;
 	MarkovModel model;
 	int limit;
-	StringBuilder stringBuffer;
+	StringBuilder stringBuffer = new StringBuilder(3);
 	String start;
 	
 	TextGenerator(int k, int n, String text) throws IOException {
@@ -17,26 +17,30 @@ public class TextGenerator {
 			limit = n;
 			
 			for (int i = 0; i < k; i++) {
-				stringBuffer.append(reader.read());
+				stringBuffer.append((char)reader.read());
 			}
 			start = stringBuffer.toString();
 	}
 	
 	String run() {
-		int current_length = model.order();
-		
-		while (current_length <= limit) {
+		int currentLength = model.order();
+		StringBuilder output = new StringBuilder(start);
+		while (currentLength <= limit) {
 			char next = model.nextCharacter(stringBuffer.toString());
 			if (next == NOCHARACTER) {
 				next = model.nextCharacter(start);
 			}
+			output.append(next);
 			stringBuffer.append(next);
+			stringBuffer.deleteCharAt(0);
+			currentLength++;
 		}
 		return stringBuffer.toString();
 	}
 	
-	public static void main(String[] args) {
-		
+	public static void main(String[] args) throws IOException {
+		TextGenerator textgen = new TextGenerator(4, 20, "test.txt");
+		System.out.println(textgen.run());
 	}
 	
 }

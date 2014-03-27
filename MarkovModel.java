@@ -32,7 +32,7 @@ public class MarkovModel {
 						"Text length is too short to construct a Markov Model of order"
 								+ m_order + ".");
 			}
-			stringBuffer.append(reader.read());
+			stringBuffer.append((char)reader.read());
 		}
 		int next = reader.read();
 		int[] asciiArray = new int[128];
@@ -44,7 +44,7 @@ public class MarkovModel {
 			
 			// Updating stringBuffer
 			stringBuffer.deleteCharAt(0);
-			stringBuffer.append(next);
+			stringBuffer.append((char)next);
 			
 			next = reader.read();
 			
@@ -117,6 +117,7 @@ public class MarkovModel {
 		for (int i = 0; i < asciiArray.length; i++) {
 			while (asciiArray[i] > 0) {
 				candidates.add((char) i);
+				asciiArray[i]--;
 			}
 		}
 		
