@@ -13,7 +13,7 @@ public class TextGenerator {
 
 	// The file reader
 	BufferedReader reader;
-	
+	// The file writer
 	BufferedWriter writer;
 	// The Markov Model
 	MarkovModel model;
