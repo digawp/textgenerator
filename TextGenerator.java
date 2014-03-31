@@ -13,6 +13,8 @@ public class TextGenerator {
 
 	// The file reader
 	BufferedReader reader;
+	
+	BufferedWriter writer;
 	// The Markov Model
 	MarkovModel model;
 	// The number of characters to generate
@@ -37,6 +39,7 @@ public class TextGenerator {
 	TextGenerator(int k, int n, String text) throws IOException {
 		model = new MarkovModel(text, k);
 		reader = new BufferedReader(new FileReader(text));
+		writer = new BufferedWriter(new FileWriter("output.txt"));
 		limit = n;
 
 		// Initialize the string buffer
@@ -52,8 +55,9 @@ public class TextGenerator {
 	 * Runs the Text Generator and returns the output string
 	 * 
 	 * @return
+	 * @throws IOException 
 	 */
-	String run() {
+	String run() throws IOException {
 
 		// Initialize the output
 		// Using the StringBuilder as it is said to be more efficient than keeps
@@ -87,13 +91,14 @@ public class TextGenerator {
 			// increment current length
 			currentLength++;
 		}
-		
+		writer.write(output.toString());
 		return output.toString();
 	}
 
 	public static void main(String[] args) throws IOException {
 		// test.txt contains texts taken from http://obamaspeeches.com/
-		TextGenerator textgen = new TextGenerator(5, 180, "test.txt");
+		args = new String[]{"5", "180", "test.txt"};
+		TextGenerator textgen = new TextGenerator(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2]);
 		textgen.model.setRandomSeed(1);
 		System.out.println(textgen.run());
 	}
