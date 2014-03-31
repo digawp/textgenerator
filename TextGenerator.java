@@ -38,7 +38,12 @@ public class TextGenerator {
 	 */
 	TextGenerator(int k, int n, String text) throws IOException {
 		model = new MarkovModel(text, k);
-		reader = new BufferedReader(new FileReader(text));
+		try {
+			reader = new BufferedReader(new FileReader(text));
+		} catch (IOException e) {
+			throw new IOException("File not found. Please ensure the name of the file you wrote is correct.");
+		}
+		
 		writer = new BufferedWriter(new FileWriter("output.txt"));
 		limit = n;
 
