@@ -100,9 +100,12 @@ public class TextGenerator {
 		return output.toString();
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, IllegalArgumentException {
 		// test.txt contains texts taken from http://obamaspeeches.com/
-		args = new String[]{"5", "180", "test.txt"};
+		if (args.length != 3) {
+			throw new IllegalArgumentException("Wrong number of arguments.");
+		}
+
 		TextGenerator textgen = new TextGenerator(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2]);
 		textgen.model.setRandomSeed(1);
 		System.out.println(textgen.run());
