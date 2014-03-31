@@ -13,8 +13,6 @@ public class TextGenerator {
 
 	// The file reader
 	BufferedReader reader;
-	// The file writer
-	BufferedWriter writer;
 	// The Markov Model
 	MarkovModel model;
 	// The number of characters to generate
@@ -44,7 +42,6 @@ public class TextGenerator {
 			throw new IOException("File not found. Please ensure the name of the file you wrote is correct.");
 		}
 		
-		writer = new BufferedWriter(new FileWriter("output.txt"));
 		limit = n;
 
 		// Initialize the string buffer
@@ -59,10 +56,8 @@ public class TextGenerator {
 	/**
 	 * Runs the Text Generator and returns the output string
 	 * 
-	 * @return
-	 * @throws IOException 
 	 */
-	String run() throws IOException {
+	void run() {
 
 		// Initialize the output
 		// Using the StringBuilder as it is said to be more efficient than keeps
@@ -96,19 +91,22 @@ public class TextGenerator {
 			// increment current length
 			currentLength++;
 		}
-		writer.write(output.toString());
-		return output.toString();
+		
+		System.out.println(output.toString());
 	}
 
 	public static void main(String[] args) throws IOException, IllegalArgumentException {
-		// test.txt contains texts taken from http://obamaspeeches.com/
+
 		if (args.length != 3) {
 			throw new IllegalArgumentException("Wrong number of arguments.");
 		}
 
-		TextGenerator textgen = new TextGenerator(Integer.parseInt(args[0]), Integer.parseInt(args[1]), args[2]);
-		textgen.model.setRandomSeed(1);
-		System.out.println(textgen.run());
+		int k = Integer.parseInt(args[0]);
+		int n = Integer.parseInt(args[1]);
+		String text = args[2]; 
+		TextGenerator textgen = new TextGenerator(k, n, text);
+		// textgen.model.setRandomSeed(1);
+		textgen.run();
 	}
 
 }
