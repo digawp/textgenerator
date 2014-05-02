@@ -19,8 +19,8 @@ public class MarkovModel {
 	final char NOCHARACTER = (char) (255);
 	// The order of the Markov Model
 	private int m_order;
-	// The reader
-	private BufferedReader reader;
+	// The text
+	private StringReader text;
 	// The hash table to map a sequence of characters to its possible next
 	// characters
 	HashMap<String, int[]> hashmap = new HashMap<String, int[]>();
@@ -40,10 +40,12 @@ public class MarkovModel {
 	 */
 	MarkovModel(String text, int order) throws IOException {
 		m_order = order;
-		reader = new BufferedReader(new FileReader(text));
+		if (text.length() < order) {
+			throw new IOException("Text is too short to construct a Markov Model of order " + m_order + ".");
+		}
+		this.text = new StringReader(text);
 		// See the method definition just below
 		fillMap();
-		reader.close();
 
 	}
 
@@ -62,20 +64,14 @@ public class MarkovModel {
 		// Fills the buffer with the first k characters of the text, where k is
 		// the order of the Markov Model
 		for (int i = 0; i < m_order; i++) {
-			// If the text supplied is shorter than the order (which is stupid),
-			// throws an error
-			if (!reader.ready()) {
-				throw new IOException(
-						"Text length is too short to construct a Markov Model of order"
-								+ m_order + ".");
-			}
+			// TODO edit until here!			
 
-			stringBuffer.append((char) reader.read());
+			stringBuffer.append((char) text.read());
 
 		}
 
 		// The next character following the sequence of k characters
-		int next = reader.read();
+		int next = text.read();
 
 		// Store the possible set of next character in an array of integer of
 		// size 128 (the number of ASCII characters)
@@ -89,7 +85,7 @@ public class MarkovModel {
 		hashmap.put(stringBuffer.toString(), asciiArray);
 
 		// For the rest of the text
-		while (reader.ready()) {
+		while (text.ready()) {
 
 			// Updating stringBuffer, using some sort of 'rolling hash' (or is
 			// it
@@ -98,7 +94,7 @@ public class MarkovModel {
 			stringBuffer.append((char) next);
 
 			// The next character that follows the sequence of k characters
-			next = reader.read();
+			next = text.read();
 
 			// store the string form of the buffer to avoid rebuilding the
 			// string for the next few checks
