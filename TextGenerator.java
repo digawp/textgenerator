@@ -35,7 +35,6 @@ public class TextGenerator {
 	 * @throws IOException
 	 */
 	TextGenerator(int k, int n, String text) throws IOException {
-		model = new MarkovModel(text, k);
 		try {
 			reader = new BufferedReader(new FileReader(text));
 		} catch (IOException e) {
@@ -44,13 +43,26 @@ public class TextGenerator {
 		
 		limit = n;
 
+		reader.mark(k+1);
 		// Initialize the string buffer
 		for (int i = 0; i < k; i++) {
 			stringBuffer.append((char) reader.read());
 		}
-		reader.close();
+
 		// Initialize the starting string.
 		start = stringBuffer.toString();
+
+		reader.reset();
+
+		StringBuilder content = new StringBuilder();
+		while(reader.ready()) {
+			content.append(reader.read());
+		}
+		// initialize the Markov Model
+		model = new MarkovModel(content, k);
+		reader.close();
+		
+		
 	}
 
 	/**
