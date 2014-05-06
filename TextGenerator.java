@@ -59,7 +59,7 @@ public class TextGenerator {
 			content.append(reader.read());
 		}
 		// initialize the Markov Model
-		model = new MarkovModel(content, k);
+		model = new MarkovModel(content.toString(), k);
 		reader.close();
 		
 		

@@ -107,6 +107,7 @@ public class MarkovModel {
 				// Else, create a new one
 				asciiArray = new int[128];
 			}
+			System.out.println(next);
 
 			// Error checking on my side only, because some of the text sample I
 			// used contains some characters that is outside the 128 ASCII
