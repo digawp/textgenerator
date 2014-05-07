@@ -9,6 +9,6 @@ Place a .txt file in the same level as the package folder as the base text for t
 
 'Order' of Markov Model indicates the number of characters the text generator is basing on when making predictions. For example, an order of 3 means that it is making prediction for a next character based on the previous 3 characters. To illustrate, let's say the 3 previous chars are 'abd', then it can predict the next char for that string based on the text file that you supplied. (Therefore, the longer the better). The result would be something similar to the text you provided, or at least sounds like it is from the same person.
 
-First working version! Feel free to play around with it! Try out different texts for a wide range of results! =D
+Second working version! Now MarkovModel receives a String of text instead of a file path for easier use (and debugging actually, but somehow I do it the other way round).
 
-Note: the latest commit has not been tested yet as Eclipse decided to mess up my Project directory. (All projects that I git init-ed are affected, anybody knows why?) So if there is any issue please let me know, or fix it yourself if you want haha.
+Feel free to play around with it! Try out different texts for a wide range of results! =D
