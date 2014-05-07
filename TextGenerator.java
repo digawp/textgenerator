@@ -56,8 +56,9 @@ public class TextGenerator {
 
 		StringBuilder content = new StringBuilder();
 		while(reader.ready()) {
-			content.append(reader.read());
+			content.append((char)reader.read());
 		}
+
 		// initialize the Markov Model
 		model = new MarkovModel(content.toString(), k);
 		reader.close();
