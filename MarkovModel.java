@@ -85,7 +85,7 @@ public class MarkovModel {
 		hashmap.put(stringBuffer.toString(), asciiArray);
 
 		// For the rest of the text
-		while (text.ready()) {
+		while (true) {
 
 			// Updating stringBuffer, using some sort of 'rolling hash' (or is
 			// it
@@ -95,6 +95,15 @@ public class MarkovModel {
 
 			// The next character that follows the sequence of k characters
 			next = text.read();
+
+			// Error checking on my side only, because some of the text sample I
+			// used contains some characters that is outside the 128 ASCII
+			// character, for whatever reason
+			if (next > 127) {
+				continue;
+			} else if (next < 0) {
+				break;
+			}
 
 			// store the string form of the buffer to avoid rebuilding the
 			// string for the next few checks
@@ -106,14 +115,6 @@ public class MarkovModel {
 			} else {
 				// Else, create a new one
 				asciiArray = new int[128];
-			}
-			System.out.println(next);
-
-			// Error checking on my side only, because some of the text sample I
-			// used contains some characters that is outside the 128 ASCII
-			// character, for whatever reason
-			if (next > 127) {
-				continue;
 			}
 
 			// Increment the appropriate character in the array
